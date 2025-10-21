@@ -49,40 +49,40 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-4 px-4">
+      <div className="max-w-full mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-2">
-            <h1 className="text-4xl font-bold text-slate-900">
+        <div className="mb-4">
+          <div className="flex justify-between items-center mb-1">
+            <h1 className="text-3xl font-bold text-slate-900">
               Sora-2 视频生成器
             </h1>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowBalanceModal(true)}
                 disabled={!apiKey}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-slate-300 text-white font-semibold rounded-lg transition"
+                className="flex items-center gap-2 px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-slate-300 text-white font-semibold rounded-lg transition text-sm"
               >
-                <Wallet className="w-5 h-5" />
+                <Wallet className="w-4 h-4" />
                 额度
               </button>
               <button
                 onClick={() => setShowConfigModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+                className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition text-sm"
               >
-                <Settings className="w-5 h-5" />
+                <Settings className="w-4 h-4" />
                 配置
               </button>
             </div>
           </div>
-          <p className="text-slate-600">
+          <p className="text-slate-600 text-sm">
             使用最新的Sora-2模型生成高质量视频
             {apiKey && ' • API密钥已设置'}
           </p>
         </div>
 
         {/* Main Content - Three Column Layout */}
-        <div className="grid gap-6" style={{ gridTemplateColumns: '200px 1fr 260px' }}>
+        <div className="grid gap-4" style={{ gridTemplateColumns: '180px 1fr 240px' }}>
           {/* Left: Preset Prompts (占 200px) */}
           <div className="h-full">
             <PresetPrompts

@@ -60,44 +60,44 @@ const TaskItem: React.FC<{ task: TaskRecord }> = ({ task }) => {
 
   return (
     <div
-      className={`border rounded-lg p-4 transition ${getStatusColor(task.status)}`}
+      className={`border rounded-lg p-3 transition ${getStatusColor(task.status)}`}
     >
-      <div className="flex justify-between items-start mb-3">
-        <div className="flex items-center gap-2">
+      <div className="flex justify-between items-start mb-2">
+        <div className="flex items-center gap-1.5">
           {getStatusIcon(task.status)}
-          <span className="font-semibold text-slate-800">{getStatusLabel(task.status)}</span>
+          <span className="font-semibold text-slate-800 text-sm">{getStatusLabel(task.status)}</span>
         </div>
-        <div className="flex gap-2">
-          <span className="text-xs font-medium bg-white px-2 py-1 rounded">
+        <div className="flex gap-1">
+          <span className="text-xs font-medium bg-white px-1.5 py-0.5 rounded">
             {task.model === 'sora-2' ? '15秒' : '25秒'}
           </span>
         </div>
       </div>
 
-      <p className="text-slate-700 text-sm mb-3 line-clamp-2">{task.prompt}</p>
+      <p className="text-slate-700 text-xs mb-2 line-clamp-2">{task.prompt}</p>
 
-      <div className="space-y-2 text-xs text-slate-600 mb-3">
+      <div className="space-y-1 text-xs text-slate-600 mb-2">
         <div className="flex items-center justify-between">
           <span>任务ID: {task.id.substring(0, 12)}...</span>
           <button
             onClick={handleCopyId}
             className="text-blue-600 hover:text-blue-800 transition"
           >
-            {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+            {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
           </button>
         </div>
         <div className="text-xs text-slate-500">创建: {formatDate(task.createdAt)}</div>
       </div>
 
       {task.progress > 0 && task.status !== 'completed' && (
-        <div className="mb-3">
-          <div className="flex justify-between items-center mb-1">
+        <div className="mb-2">
+          <div className="flex justify-between items-center mb-0.5">
             <span className="text-xs font-medium text-slate-600">进度</span>
             <span className="text-xs font-bold text-slate-700">{task.progress}%</span>
           </div>
-          <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
             <div
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              className="bg-blue-500 h-1.5 rounded-full transition-all duration-300"
               style={{ width: `${Math.min(task.progress, 100)}%` }}
             />
           </div>
@@ -105,22 +105,22 @@ const TaskItem: React.FC<{ task: TaskRecord }> = ({ task }) => {
       )}
 
       {task.error && (
-        <div className="mb-3 p-2 bg-red-100 rounded text-xs text-red-700">
+        <div className="mb-2 p-1.5 bg-red-100 rounded text-xs text-red-700">
           {task.error}
         </div>
       )}
 
       {task.videoUrl && task.status === 'completed' && (
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <video
             src={task.videoUrl}
             controls
-            className="w-full rounded-lg border border-slate-300 max-h-48"
+            className="w-full rounded-lg border border-slate-300 max-h-40"
           />
           <a
             href={task.videoUrl}
             download={`sora-video-${task.id.substring(0, 8)}.mp4`}
-            className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg transition"
+            className="flex items-center justify-center gap-1.5 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-1.5 rounded-lg transition text-sm"
           >
             <Download className="w-4 h-4" />
             下载视频
@@ -133,12 +133,12 @@ const TaskItem: React.FC<{ task: TaskRecord }> = ({ task }) => {
 
 export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
-      <h2 className="text-xl font-bold text-slate-800 mb-4">任务历史 ({tasks.length})</h2>
-      <div className="space-y-2 flex-1 overflow-y-auto">
+    <div className="bg-white rounded-lg shadow-md p-4 h-full flex flex-col">
+      <h2 className="text-lg font-bold text-slate-800 mb-3">任务历史 ({tasks.length})</h2>
+      <div className="space-y-1.5 flex-1 overflow-y-auto">
         {tasks.length === 0 ? (
-          <div className="text-center text-slate-400 py-8">
-            <p className="text-sm">暂无任务</p>
+          <div className="text-center text-slate-400 py-6">
+            <p className="text-xs">暂无任务</p>
           </div>
         ) : (
           tasks.map((task) => (

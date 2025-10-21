@@ -96,20 +96,20 @@ interface PresetPromptsProps {
 
 export const PresetPrompts: React.FC<PresetPromptsProps> = ({ onSelectPrompt, isLoading = false }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 h-full overflow-hidden flex flex-col">
-      <div className="flex items-center gap-2 mb-4">
-        <Sparkles className="w-5 h-5 text-blue-600" />
-        <h3 className="font-bold text-slate-800">预设提示词</h3>
+    <div className="bg-white rounded-lg shadow-md p-3 h-full overflow-hidden flex flex-col">
+      <div className="flex items-center gap-1.5 mb-3">
+        <Sparkles className="w-4 h-4 text-blue-600" />
+        <h3 className="font-bold text-slate-800 text-sm">预设提示词</h3>
       </div>
 
-      <div className="space-y-2 flex-1 overflow-y-auto">
+      <div className="space-y-1.5 flex-1 overflow-y-auto">
         {PRESET_PROMPTS.map((preset) => (
           <button
             key={preset.name}
             onClick={() => onSelectPrompt(preset.description)}
             disabled={isLoading}
             title={preset.description}
-            className="w-full text-left px-3 py-2 text-sm font-medium bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 disabled:opacity-50 disabled:cursor-not-allowed text-blue-800 border border-blue-200 rounded transition truncate"
+            className="w-full text-left px-2 py-1.5 text-xs font-medium bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 disabled:opacity-50 disabled:cursor-not-allowed text-blue-800 border border-blue-200 rounded transition truncate"
           >
             {preset.name}
           </button>
