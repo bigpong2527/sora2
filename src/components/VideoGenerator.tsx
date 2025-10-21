@@ -1,7 +1,91 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Send, Upload, Loader } from 'lucide-react';
+import { Send, Upload, Loader, Sparkles } from 'lucide-react';
 import { taskQueue, type TaskRecord } from '../services/taskQueue';
 import { storage } from '../services/storage';
+
+// 预设提示词列表
+const PRESET_PROMPTS = [
+  {
+    name: 'Rotoscoping Animation',
+    description: 'Rotoscoping animation style (a la Richard Linklater\'s \'A Scanner Darkly\' or \'Undone\'). A scene animated by tracing over live-action footage frame by frame. The result is fluid, lifelike motion combined with a stylized, painterly, or graphic visual layer.'
+  },
+  {
+    name: '90s Skate Video',
+    description: '90s skate video aesthetic. Shot on a Sony VX1000 camera with a fisheye lens. The footage of a skateboarder performing a trick is slightly low-resolution, with saturated colors and high contrast. The camera is held low to the ground, capturing the raw energy and sound of the wheels on pavement.'
+  },
+  {
+    name: 'Kitchen Sink Realism',
+    description: 'British Kitchen Sink Realism style. A gritty, black and white scene of working-class characters in a cramped, industrial urban setting in Northern England. The cinematography is stark and documentary-like, using natural light. The focus is on the mundane, everyday struggles.'
+  },
+  {
+    name: '8-bit Pixel Art',
+    description: '8-bit pixel art animation. A scene rendered in a highly restricted, low-resolution pixel grid with a limited color palette, reminiscent of classic Nintendo (NES) games. The animation is simple, with characters and objects moving in a jerky, frame-by-frame manner.'
+  },
+  {
+    name: 'Busby Berkeley',
+    description: 'Busby Berkeley style musical number. An elaborate, kaleidoscopic overhead shot of dozens of dancers moving in perfect, geometric synchronization. The camera cranes and moves to create abstract, mesmerizing patterns. A black and white, art deco spectacle of pure cinematic fantasy.'
+  },
+  {
+    name: 'Stan Brakhage',
+    description: 'Experimental film in the style of Stan Brakhage. A non-narrative, abstract sequence created by physically scratching, painting, or collaging directly onto the film strip. The result is a flickering, chaotic, and intensely personal barrage of color, texture, and light.'
+  },
+  {
+    name: 'Travel Video (Sam Kolder)',
+    description: 'Cinematic travel video (in the style of Sam Kolder). A dynamic, fast-paced montage of a stunning, exotic location. Features whip pans, smooth gimbal movements, FPV drone shots diving down waterfalls, and speed ramps. The color grading is vibrant.'
+  },
+  {
+    name: 'Tokusatsu (Kaiju)',
+    description: 'Japanese Tokusatsu style (e.g., Ultraman, Godzilla). A scene of a giant monster (kaiju) or a costumed hero fighting in a miniature city. The special effects are practical, featuring detailed scale models of buildings that crumble and explode.'
+  },
+  {
+    name: 'Medical Animation',
+    description: 'High-end medical animation. A photorealistic 3D visualization of a complex biological process inside the human body. The colors are clean and clinical. The animation is smooth and clear, designed for educational purposes.'
+  },
+  {
+    name: 'Werner Herzog Doc',
+    description: 'Werner Herzog style documentary. A long, static shot while Herzog\'s distinct, contemplative voiceover narrates a philosophical or absurd observation about the human condition, nature\'s indifference, or the \'ecstatic truth\'.'
+  },
+  {
+    name: 'Analog Horror',
+    description: 'Analog horror aesthetic (e.g., The Mandela Catalogue, Local 58). A video that mimics a piece of found media from the analog era (VHS tape, old TV broadcast). The footage is interrupted by distorted faces, cryptic text, and unsettling audio.'
+  },
+  {
+    name: 'Motion Comic',
+    description: 'Motion comic or \'Kirby Krackle\' effect. A scene composed of still comic book panels. The camera pans and zooms across the panels, and individual elements within the panels are given subtle animation and parallax movement.'
+  },
+  {
+    name: 'Olympics Ceremony',
+    description: 'Olympics opening ceremony broadcast style. A grand, sweeping, multi-camera shot of a massive, choreographed performance in a stadium. Features thousands of performers, large-scale puppetry, and spectacular pyrotechnics.'
+  },
+  {
+    name: 'Federico Fellini',
+    description: 'Federico Fellini style. A surreal, carnivalesque scene blending dreams, memories, and reality. A large, eccentric cast of characters moves through a chaotic, theatrical setting with fluid camera work and tracking shots.'
+  },
+  {
+    name: 'Slow TV',
+    description: '\'Slow TV\' aesthetic. A real-time, uninterrupted long take of a mundane but mesmerizing journey (e.g., a 7-hour train ride or a boat sailing up a fjord). There is no narration or dramatic editing. Meditative and immersive.'
+  },
+  {
+    name: 'Apple Think Different',
+    description: 'Apple\'s \'Think Different\' commercial style. An elegant, black and white montage of iconic historical figures. Slow, graceful Ken Burns-style moves on archival photos. A sparse, poignant piano score plays under a powerful, inspirational voiceover.'
+  },
+  {
+    name: 'Old Spice Commercial',
+    description: 'Surreal, fast-paced commercial style (e.g., Old Spice\'s \'The Man Your Man Could Smell Like\'). A single, long take where a charismatic spokesperson moves seamlessly through rapidly changing, absurd scenarios and locations.'
+  },
+  {
+    name: 'MKBHD Tech Review',
+    description: 'A Marques Brownlee (MKBHD) style tech review video. A pristine tech product is showcased with ultra-smooth, robotic camera movements against a minimalist background. Extreme macro shots reveal intricate textures. Crystal clear 8K on a RED camera.'
+  },
+  {
+    name: 'Adam Curtis Doc',
+    description: 'An Adam Curtis style documentary montage. A sequence of obscure, grainy, and often unsettling archival footage is juxtaposed to create a new, ironic meaning. A slow, hypnotic electronic track plays. Simple, bold Helvetica text appears on screen.'
+  },
+  {
+    name: 'OK Go Music Video',
+    description: 'An OK Go style one-take music video. A single, continuous, and perfectly choreographed shot capturing an incredibly complex sequence of practical effects, Rube Goldberg machines, or synchronized actions.'
+  }
+];
 
 interface VideoGeneratorProps {
   onTaskCreated: (task: TaskRecord) => void;
@@ -81,6 +165,27 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
             disabled={isLoading}
           />
           <p className="text-xs text-slate-500 mt-1">详细的提示词能生成更好的效果</p>
+
+          <div className="mt-4">
+            <label className="block text-xs font-semibold text-slate-600 mb-2 flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              预设提示词
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+              {PRESET_PROMPTS.map((preset) => (
+                <button
+                  key={preset.name}
+                  type="button"
+                  onClick={() => setPrompt(preset.description)}
+                  disabled={isLoading}
+                  title={preset.description}
+                  className="px-2 py-1.5 text-xs font-medium bg-blue-50 hover:bg-blue-100 disabled:opacity-50 disabled:cursor-not-allowed text-blue-700 border border-blue-200 rounded transition truncate"
+                >
+                  {preset.name}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div>
