@@ -50,7 +50,7 @@
 
 ### 第一步：安装依赖
 ```bash
-cd /Users/pengwu/Downloads/sora
+cd <project-root>
 npm install
 ```
 

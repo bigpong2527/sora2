@@ -7,7 +7,7 @@
 ⏱️ 只需 3 个简单命令即可启动:
 
 1️⃣  进入项目目录:
-   cd /Users/pengwu/Downloads/sora
+   cd <project-root>
 
 2️⃣  启动开发服务器:
    npm run dev

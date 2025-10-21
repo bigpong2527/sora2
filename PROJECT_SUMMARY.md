@@ -414,7 +414,7 @@ vercel
 
 开始命令:
 ```bash
-cd /Users/pengwu/Downloads/sora
+cd <project-root>
 npm run dev
 ```
 

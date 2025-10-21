@@ -4,7 +4,7 @@
 
 ### 1. 克隆或进入项目
 ```bash
-cd /Users/pengwu/Downloads/sora
+cd <project-root>
 ```
 
 ### 2. 安装依赖 (3分钟)

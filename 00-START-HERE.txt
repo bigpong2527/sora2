@@ -10,7 +10,7 @@
 
 1️⃣ 打开终端并执行:
 
-    cd /Users/pengwu/Downloads/sora
+    cd <project-root>
     npm run dev
 
 2️⃣ 浏览器会自动打开应用 (http://localhost:3000)

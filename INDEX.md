@@ -10,7 +10,7 @@
 
 ```bash
 # 1️⃣ 进入项目
-cd /Users/pengwu/Downloads/sora
+cd <project-root>
 
 # 2️⃣ 启动应用
 npm run dev
@@ -219,7 +219,7 @@ docker-compose up       # 使用Compose运行
 ## ✨ 立即开始
 
 ```bash
-cd /Users/pengwu/Downloads/sora
+cd <project-root>
 npm run dev
 ```
 
