@@ -92,7 +92,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ isOpen, onClose, onApi
                 获取您的API密钥
               </p>
               <a
-                href="https://api.tu-zi.com"
+                href="https://api.tu-zi.com/register?aff=l0pg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded transition"

@@ -132,7 +132,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
               />
               <div className="ml-3">
                 <p className="font-semibold text-slate-800">Sora-2</p>
-                <p className="text-sm text-slate-500">时长: 15秒</p>
+                <p className="text-sm text-slate-500">时长: 15秒 | 价格: ¥0.14</p>
               </div>
             </label>
 
@@ -148,7 +148,7 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
               />
               <div className="ml-3">
                 <p className="font-semibold text-slate-800">Sora-2 Pro</p>
-                <p className="text-sm text-slate-500">时长: 25秒</p>
+                <p className="text-sm text-slate-500">时长: 25秒 | 价格: ¥0.21</p>
               </div>
             </label>
           </div>
