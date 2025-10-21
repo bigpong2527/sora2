@@ -4,6 +4,7 @@ import { ConfigModal } from './components/ConfigModal';
 import { BalanceChecker } from './components/BalanceChecker';
 import { VideoGenerator } from './components/VideoGenerator';
 import { TaskList } from './components/TaskList';
+import { PresetPrompts } from './components/PresetPrompts';
 import { storage } from './services/storage';
 import { apiClient } from './services/api';
 import { taskQueue, type TaskRecord } from './services/taskQueue';
@@ -11,8 +12,10 @@ import { taskQueue, type TaskRecord } from './services/taskQueue';
 function App() {
   const [apiKey, setApiKey] = useState('');
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
+  const [prompt, setPrompt] = useState('');
   const [showConfigModal, setShowConfigModal] = useState(false);
   const [showBalanceModal, setShowBalanceModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Initialize on mount
   useEffect(() => {
@@ -78,22 +81,32 @@ function App() {
           </p>
         </div>
 
-        {/* Main Content - Two Column Layout */}
-        <div className="grid grid-cols-3 gap-6">
-          {/* Left: Video Generator (占 2 列) */}
-          <div className="col-span-2">
-            <VideoGenerator
-              onTaskCreated={handleTaskCreated}
-              isApiKeySet={!!apiKey}
+        {/* Main Content - Three Column Layout */}
+        <div className="grid gap-6" style={{ gridTemplateColumns: '200px 1fr 260px' }}>
+          {/* Left: Preset Prompts (占 200px) */}
+          <div className="h-full">
+            <PresetPrompts
+              onSelectPrompt={setPrompt}
+              isLoading={isLoading}
             />
           </div>
 
-          {/* Right: Task List (占 1 列) */}
-          <div className="col-span-1">
+          {/* Middle: Video Generator (主要区域) */}
+          <div>
+            <VideoGenerator
+              onTaskCreated={handleTaskCreated}
+              isApiKeySet={!!apiKey}
+              prompt={prompt}
+              onPromptChange={setPrompt}
+            />
+          </div>
+
+          {/* Right: Task List (占 260px) */}
+          <div>
             {tasks.length > 0 ? (
               <TaskList tasks={tasks} />
             ) : (
-              <div className="bg-white rounded-lg shadow-md p-8 text-center h-full flex items-center justify-center">
+              <div className="bg-white rounded-lg shadow-md p-6 text-center h-full flex items-center justify-center">
                 <div className="text-slate-400">
                   <p className="text-lg font-semibold mb-2">暂无任务</p>
                   <p className="text-sm">生成视频后会显示在这里</p>
