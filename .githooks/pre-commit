@@ -7,8 +7,8 @@ echo "🔒 Running security checks..."
 # Pattern to match API keys (sk-* format)
 API_KEY_PATTERN="sk-[a-zA-Z0-9]{30,}"
 
-# Check for hardcoded API keys in staged files
-if git diff --cached | grep -E "$API_KEY_PATTERN" > /dev/null; then
+# Check for hardcoded API keys in staged files (only + lines, not - lines)
+if git diff --cached | grep "^+" | grep -E "$API_KEY_PATTERN" | grep -v "^+++" > /dev/null; then
     echo "❌ Error: Hardcoded API key detected in staged files!"
     echo "Please remove any API keys before committing."
     exit 1

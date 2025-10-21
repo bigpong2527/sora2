@@ -183,7 +183,7 @@
 
 <script>
     // --- 配置 ---
-    const API_KEY = "sk-nAxsOc7ZNa37ZsSLiNTW7ARAUx2OKqE5O9oaTn0DFmKx9M9Q"; // ⚠️ 请将这里替换为您的 Tu-Zi API Key
+    const API_KEY = "sk-your-api-key-here"; // ⚠️ 请将这里替换为您的 Tu-Zi API Key (从 https://dashboard.tu-zi.com 获取)
     const API_BASE_URL = "https://api.tu-zi.com/v1";
     const POLLING_INTERVAL = 10000; // 轮询间隔，10秒
     const POLLING_TIMEOUT = 20 * 60 * 1000; // 轮询超时，20分钟
