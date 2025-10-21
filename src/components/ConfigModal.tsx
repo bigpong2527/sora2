@@ -78,18 +78,28 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ isOpen, onClose, onApi
                 {showKey ? '隐藏' : '显示'}
               </button>
             </div>
-            <p className="mt-2 text-xs text-slate-500">
-              从{' '}
+            <div className="mt-3 space-y-2">
+              <p className="text-xs text-slate-500">
+                从{' '}
+                <a
+                  href="https://dashboard.tu-zi.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  Tu-Zi Dashboard
+                </a>{' '}
+                获取您的API密钥
+              </p>
               <a
-                href="https://dashboard.tu-zi.com"
+                href="https://api.tu-zi.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
+                className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded transition"
               >
-                Tu-Zi Dashboard
-              </a>{' '}
-              获取您的API密钥
-            </p>
+                Tu-Zi API 文档
+              </a>
+            </div>
           </div>
 
           {saved && (
