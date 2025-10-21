@@ -2,7 +2,29 @@ node_modules/
 dist/
 .DS_Store
 *.log
+.env
 .env.local
 .env.*.local
 *.tsbuildinfo
 .vite/
+
+# Security - sensitive files
+.env.production
+.env.development
+*.key
+*.pem
+secrets.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Build
+build/
+out/

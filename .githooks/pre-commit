@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Pre-commit hook to prevent committing API keys and secrets
+
+echo "🔒 Running security checks..."
+
+# Pattern to match API keys (sk-* format)
+API_KEY_PATTERN="sk-[a-zA-Z0-9]{30,}"
+
+# Check for hardcoded API keys in staged files
+if git diff --cached | grep -E "$API_KEY_PATTERN" > /dev/null; then
+    echo "❌ Error: Hardcoded API key detected in staged files!"
+    echo "Please remove any API keys before committing."
+    exit 1
+fi
+
+# Check for common secret patterns
+SECRET_PATTERNS=(
+    "password.*="
+    "secret.*="
+    "token.*="
+    "api.?key.*="
+)
+
+for pattern in "${SECRET_PATTERNS[@]}"; do
+    if git diff --cached | grep -iE "$pattern" > /dev/null; then
+        echo "⚠️  Warning: Possible secret detected (pattern: $pattern)"
+    fi
+done
+
+echo "✅ Security checks passed!"
+exit 0
