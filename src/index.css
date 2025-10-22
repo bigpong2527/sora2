@@ -9,3 +9,37 @@
 body {
   @apply bg-gradient-to-br from-slate-50 to-slate-100;
 }
+
+/* Hide scrollbar for mobile horizontal scroll but keep functionality */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+
+  /* Thin scrollbar for desktop */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thumb-slate-300::-webkit-scrollbar-thumb {
+    background-color: rgb(203 213 225);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thumb-slate-300::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(148 163 184);
+  }
+
+  .scrollbar-track-slate-100::-webkit-scrollbar-track {
+    background-color: rgb(241 245 249);
+  }
+}

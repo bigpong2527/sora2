@@ -81,13 +81,23 @@ function App() {
           </p>
         </div>
 
+        {/* Mobile: Horizontal Preset Prompts (仅在移动端显示) */}
+        <div className="md:hidden mb-3">
+          <PresetPrompts
+            onSelectPrompt={setPrompt}
+            isLoading={isLoading}
+            isMobile={true}
+          />
+        </div>
+
         {/* Main Content - Responsive Layout */}
-        <div className="grid gap-2 sm:gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-5" style={{ gridTemplateColumns: 'auto' }}>
-          {/* Left: Preset Prompts (隐藏在移动端，显示在md及以上) */}
+        <div className="grid gap-2 sm:gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-5">
+          {/* Left: Preset Prompts (仅在桌面端显示) */}
           <div className="hidden md:block md:col-span-1 h-full">
             <PresetPrompts
               onSelectPrompt={setPrompt}
               isLoading={isLoading}
+              isMobile={false}
             />
           </div>
 
