@@ -65,47 +65,47 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
   );
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4">
-      <h2 className="text-xl font-bold text-slate-800 mb-4">视频生成</h2>
+    <div className="bg-white rounded-lg shadow-md p-3 sm:p-4">
+      <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4">视频生成</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 sm:mb-2">
             视频提示词 (Prompt) *
           </label>
           <textarea
             value={prompt}
             onChange={(e) => onPromptChange(e.target.value)}
             placeholder="例如：A cinematic shot of a golden retriever puppy playing in a field of flowers..."
-            className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-            rows={4}
+            className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            rows={3}
             disabled={isLoading}
           />
           <p className="text-xs text-slate-500 mt-1">详细的提示词能生成更好的效果</p>
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">参考图 (可选)</label>
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 sm:mb-2">参考图 (可选)</label>
           {imagePreview ? (
             <div className="relative inline-block">
               <img
                 src={imagePreview}
                 alt="Preview"
-                className="w-32 h-32 rounded-lg object-cover border border-slate-300"
+                className="w-24 sm:w-32 h-24 sm:h-32 rounded-lg object-cover border border-slate-300"
               />
               <button
                 type="button"
                 onClick={handleRemoveImage}
-                className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 transition"
+                className="absolute top-0.5 right-0.5 bg-red-500 hover:bg-red-600 text-white rounded-full p-0.5 transition"
               >
                 ✕
               </button>
             </div>
           ) : (
-            <label className="flex items-center justify-center w-full px-3 py-4 border-2 border-dashed border-slate-300 rounded-lg hover:border-blue-400 cursor-pointer transition">
+            <label className="flex items-center justify-center w-full px-2 sm:px-3 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-lg hover:border-blue-400 cursor-pointer transition">
               <div className="text-center">
-                <Upload className="w-6 h-6 text-slate-400 mx-auto mb-1" />
-                <span className="text-slate-600 font-medium text-sm">点击选择或拖拽上传</span>
+                <Upload className="w-5 sm:w-6 h-5 sm:h-6 text-slate-400 mx-auto mb-0.5 sm:mb-1" />
+                <span className="text-slate-600 font-medium text-xs sm:text-sm">点击选择或拖拽上传</span>
               </div>
               <input
                 type="file"
@@ -119,9 +119,9 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">视频模型</label>
-          <div className="grid grid-cols-2 gap-3">
-            <label className="flex items-center p-3 border-2 rounded-lg cursor-pointer transition" style={{borderColor: model === 'sora-2' ? '#3b82f6' : '#e2e8f0'}}>
+          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 sm:mb-2">视频模型</label>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <label className="flex items-center p-2 sm:p-3 border-2 rounded-lg cursor-pointer transition" style={{borderColor: model === 'sora-2' ? '#3b82f6' : '#e2e8f0'}}>
               <input
                 type="radio"
                 name="model"
@@ -129,15 +129,15 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
                 checked={model === 'sora-2'}
                 onChange={(e) => setModel(e.target.value as 'sora-2' | 'sora-2-pro')}
                 disabled={isLoading}
-                className="w-4 h-4"
+                className="w-3 sm:w-4 h-3 sm:h-4"
               />
-              <div className="ml-2">
-                <p className="font-semibold text-slate-800 text-sm">Sora-2</p>
-                <p className="text-xs text-slate-500">时长: 15秒 | 价格: ¥0.14</p>
+              <div className="ml-1.5 sm:ml-2">
+                <p className="font-semibold text-slate-800 text-xs sm:text-sm">Sora-2</p>
+                <p className="text-xs text-slate-500">15秒 | ¥0.14</p>
               </div>
             </label>
 
-            <label className="flex items-center p-3 border-2 rounded-lg cursor-pointer transition" style={{borderColor: model === 'sora-2-pro' ? '#3b82f6' : '#e2e8f0'}}>
+            <label className="flex items-center p-2 sm:p-3 border-2 rounded-lg cursor-pointer transition" style={{borderColor: model === 'sora-2-pro' ? '#3b82f6' : '#e2e8f0'}}>
               <input
                 type="radio"
                 name="model"
@@ -145,11 +145,11 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
                 checked={model === 'sora-2-pro'}
                 onChange={(e) => setModel(e.target.value as 'sora-2' | 'sora-2-pro')}
                 disabled={isLoading}
-                className="w-4 h-4"
+                className="w-3 sm:w-4 h-3 sm:h-4"
               />
-              <div className="ml-2">
-                <p className="font-semibold text-slate-800 text-sm">Sora-2 Pro</p>
-                <p className="text-xs text-slate-500">时长: 25秒 | 价格: ¥2.1</p>
+              <div className="ml-1.5 sm:ml-2">
+                <p className="font-semibold text-slate-800 text-xs sm:text-sm">Sora-2 Pro</p>
+                <p className="text-xs text-slate-500">25秒 | ¥2.1</p>
               </div>
             </label>
           </div>
@@ -158,16 +158,16 @@ export const VideoGenerator: React.FC<VideoGeneratorProps> = ({ onTaskCreated, i
         <button
           type="submit"
           disabled={isLoading || !isApiKeySet}
-          className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-2 rounded-lg transition text-sm"
+          className="w-full flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-1.5 sm:py-2 rounded-lg transition text-xs sm:text-sm"
         >
           {isLoading ? (
             <>
-              <Loader className="w-4 h-4 animate-spin" />
+              <Loader className="w-3 sm:w-4 h-3 sm:h-4 animate-spin" />
               提交中...
             </>
           ) : (
             <>
-              <Send className="w-4 h-4" />
+              <Send className="w-3 sm:w-4 h-3 sm:h-4" />
               生成视频
             </>
           )}
